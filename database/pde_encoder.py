@@ -1,0 +1,63 @@
+# database/pde_encoder.py
+
+# PDE label dictionary
+PDE_LABELS = {
+    'Burgers1D':    ['Burgers', 'parabolic', '1d',  'nonlinear', 'time-dependent',   'dirichlet',  'initial-condition',     'constant-coefficient', 'short-time', 'simple-geometry'],
+    'Burgers2D':    ['Burgers', 'parabolic', '2d',  'nonlinear', 'time-dependent',   'periodic',   'initial-condition',     'constant-coefficient', 'short-time', 'simple-geometry'],
+    'Poisson2D_Classic':  ['Poisson', 'elliptic',  '2d',  'linear',    'time-independent', 'dirichlet',  'no-initial-condition',  'constant-coefficient', 'short-time', 'complex-geometry'],
+    'PoissonBoltzmann2D': ['Poisson', 'elliptic',  '2d',  'linear',    'time-independent', 'dirichlet',  'no-initial-condition',  'variable-coefficient', 'short-time', 'complex-geometry'],
+    'Poisson3D_ComplexGeometry': ['Poisson', 'elliptic',  '3d',  'linear',    'time-independent', 'neumann',    'no-initial-condition',  'variable-coefficient', 'short-time', 'complex-geometry'],
+    'Poisson2D_ManyArea': ['Poisson', 'elliptic',  '2d',  'linear',    'time-independent', 'robin',      'no-initial-condition',  'variable-coefficient', 'short-time', 'complex-geometry'],
+    'Heat2D_VaryingCoef':    ['Heat',    'parabolic', '2d',  'linear',    'time-dependent',   'dirichlet',  'initial-condition',     'variable-coefficient', 'short-time', 'simple-geometry'],
+    'Heat2D_Multiscale':    ['Heat',    'parabolic',  '2d',  'linear',    'time-dependent',   'dirichlet',  'initial-condition',     'constant-coefficient', 'short-time', 'simple-geometry'],
+    'Heat2D_ComplexGeometry':    ['Heat',    'parabolic', '2d',  'linear',    'time-dependent',   'robin',      'initial-condition',     'constant-coefficient', 'short-time', 'complex-geometry'],
+    'NS2D_LidDriven':       ['NS',      'mixed',     '2d',  'nonlinear', 'time-independent', 'dirichlet',  'no-initial-condition',  'constant-coefficient', 'short-time', 'simple-geometry'], 
+    'NS2D_BackStep':      ['NS',      'mixed',     '2d',  'nonlinear', 'time-independent', 'dirichlet',  'no-initial-condition',  'constant-coefficient', 'short-time', 'complex-geometry'],
+    'Wave1D':     ['Wave',    'hyperbolic', '1d', 'linear',    'time-dependent',   'dirichlet',  'initial-condition',     'constant-coefficient', 'short-time', 'simple-geometry'],
+    'Wave2D_Heterogeneous':    ['Wave',    'hyperbolic', '2d', 'linear',    'time-dependent',   'neumann',    'initial-condition',     'variable-coefficient', 'short-time', 'complex-geometry'],
+    'Wave2D_LongTime':    ['Wave',    'hyperbolic', '2d', 'linear',    'time-dependent',   'dirichlet',  'initial-condition',     'constant-coefficient', 'long-time', 'simple-geometry'], 
+    'GrayScottEquation':           ['Chaotic', 'parabolic',  '2d', 'nonlinear', 'time-dependent',   'no-boundary-condition', 'initial-condition', 'constant-coefficient', 'long-time', 'simple-geometry'],
+    'KuramotoSivashinskyEquation':           ['Chaotic', 'parabolic',  '1d', 'nonlinear', 'time-dependent',   'periodic',     'initial-condition',    'constant-coefficient', 'short-time', 'simple-geometry'],
+    'PoissonND':          ['Poisson', 'elliptic',   'nd', 'linear',    'time-independent', 'no-boundary-condition', 'no-initial-condition', 'constant-coefficient', 'short-time', 'simple-geometry'],
+    'HeatND':          ['Heat',    'parabolic',  'nd', 'linear',    'time-dependent',   'mixed-boundary', 'initial-condition', 'constant-coefficient', 'short-time', 'simple-geometry']
+}
+
+# Feature encoding dictionary (as in original script)
+feature_encoding = {
+    'Burgers': [1, 0, 0, 0, 0, 0, 0, 0], 
+    'Poisson': [0, 1, 0, 0, 0, 0, 0, 0], 
+    'Heat': [0, 0, 1, 0, 0, 0, 0, 0], 
+    'NS': [0, 0, 0, 1, 0, 0, 0, 0], 
+    'Wave': [0, 0, 0, 0, 1, 0, 0, 0], 
+    'Chaotic': [0, 0, 0, 0, 0, 1, 0, 0], 
+    'Inverse': [0, 0, 0, 0, 0, 0, 1, 0], 
+    'Darcy': [0, 0, 0, 0, 0, 0, 0, 1],  
+    'parabolic': [1, 0, 0, 0], 
+    'elliptic': [0, 1, 0, 0], 
+    'hyperbolic': [0, 0, 1, 0], 
+    'mixed': [0, 0, 0, 1],
+    '1d': [1, 0, 0, 0, 0], 
+    '2d': [0, 1, 0, 0, 0], 
+    '3d': [0, 0, 1, 0, 0], 
+    'nd': [0, 0, 0, 1, 0], 
+    'inverse': [0, 0, 0, 0, 1],
+    'linear': [1, 0], 
+    'nonlinear': [0, 1],  
+    'time-independent': [1, 0], 
+    'time-dependent': [0, 1], 
+    'dirichlet': [1, 0, 0, 0], 
+    'neumann': [0, 1, 0, 0], 
+    'robin': [0, 0, 1, 0], 
+    'periodic': [0, 0, 0, 1], 
+    'no-boundary-condition': [0, 0, 0, 0], 
+    'mixed-boundary': [1, 1, 1, 1],
+    'initial-condition': [1, 0], 
+    'no-initial-condition': [0, 1], 
+    'constant-coefficient': [1, 0, 0], 
+    'variable-coefficient': [0, 1, 0], 
+    'inverse-coefficient': [0, 0, 1],
+    'short-time': [1, 0], 
+    'long-time': [0, 1],  
+    'simple-geometry': [1, 0], 
+    'complex-geometry': [0, 1]
+}

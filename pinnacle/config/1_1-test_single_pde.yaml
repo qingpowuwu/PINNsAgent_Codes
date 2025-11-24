@@ -1,0 +1,47 @@
+name: 1_1-test_single_pde
+device: '1' # or 'cpu'
+
+seed: 44
+log_every: 100
+plot_every: 2000
+repeat: 1
+iter: 4000
+output_dir: "output/2025_5_25"
+
+# (0) pde list
+pde_list: ['Burgers1D']
+
+# (1) general method
+general_method: "none"
+
+# (2) activation
+activation: "relu"
+
+# (3) net
+net: "gaaf"
+
+# (4) optimizer
+optimizer: "sgd"
+
+# (5) sampler
+sampler: "none"
+
+# (7) layers
+width: 64
+depth: 8
+
+# (6) loss weight
+loss_weight: "none"
+
+# (8) lr
+lr: 0.001
+
+# (9) sampler points
+num_domain_points: 6600
+num_boundary_points: 5600
+num_initial_points: 600
+num_test_points: "Default"
+
+# (10) initializer
+initializer: "zeros"
+

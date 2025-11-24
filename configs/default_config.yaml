@@ -1,0 +1,58 @@
+# configs/default_config.yaml
+
+# Fixed parameters
+fixed_params:
+  seed: 44
+  log_every: 100
+  plot_every: 2000
+  repeat: 1
+  iter: 20000
+  general_method: "none"
+  sampler: "none"
+  loss_weight: "none"
+  num_test_points: "Default"
+  device: "0"
+
+# PDE list definitions
+pde_lists:
+  1d:
+    - "Burgers1D"
+    - "Wave1D"
+    - "KuramotoSivashinskyEquation"
+  
+  2d:
+    - "Burgers2D"
+    - "Wave2D_Heterogeneous"
+    - "Heat2D_ComplexGeometry"
+    - "NS2D_LidDriven"
+    - "GrayScottEquation"
+    - "Heat2D_Multiscale"
+    - "Heat2D_VaryingCoef"
+    - "Poisson2D_ManyArea"
+  
+  3d:
+    - "Poisson3D_ComplexGeometry"
+  
+  nd:
+    - "PoissonND"
+    - "HeatND"
+
+# Hyperparameter search space (consistent with Table 1 in the paper)
+search_space:
+  activation: ["elu", "selu", "sigmoid", "silu", "relu", "tanh", "swish", "sin", "gaussian"]
+  net: ["fnn", "laaf", "gaaf"]  # FNNs, LAAFs, GAAFs
+  optimizer: ["sgd", "adam", "multiadam", "lbfgs"]
+  lr: [1e-6, 1e-5, 1e-4, 1e-3, 1e-2, 1e-1]  # 10^-6 to 10^-1
+  width: [8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68, 72, 76, 80, 84, 88, 92, 96, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 148, 152, 156, 160, 164, 168, 172, 176, 180, 184, 188, 192, 196, 200, 204, 208, 212, 216, 220, 224, 228, 232, 236, 240, 244, 248, 252, 256]  # 8 to 256 (Increment: 4)
+  depth: [3, 4, 5, 6, 7, 8, 9, 10]  # 3 to 10 (Increment: 1)
+  # Points: 100 to 9600 (Increment: 500)
+  num_domain_points: [100, 600, 1100, 1600, 2100, 2600, 3100, 3600, 4100, 4600, 5100, 5600, 6100, 6600, 7100, 7600, 8100, 8600, 9100, 9600]
+  num_boundary_points: [100, 600, 1100, 1600, 2100, 2600, 3100, 3600, 4100, 4600, 5100, 5600, 6100, 6600, 7100, 7600, 8100, 8600, 9100, 9600]
+  num_initial_points: [100, 600, 1100, 1600, 2100, 2600, 3100, 3600, 4100, 4600, 5100, 5600, 6100, 6600, 7100, 7600, 8100, 8600, 9100, 9600]
+  initializer: ["Glorot normal", "Glorot uniform", "He normal", "He uniform", "zeros"]
+
+# LLM configuration
+llm_config:
+  api_key: "your-api-key-here"  # Replace with your OpenAI API key
+  base_url: "https://api.openai.com/v1"  # OpenAI official endpoint
+  model: "gpt-4o"
