@@ -1,4 +1,6 @@
-# pinnsagent_progress
+# PINNsAgent: Automated PDE Surrogation with Large Language Models
+
+#### [Project Page](https://qingpowuwu.github.io/PINNsAgent/) | [**arXiv Paper**](https://arxiv.org/abs/2501.12053)
 
 # Environment Setup (Server cuda121-torch231)
 
@@ -150,5 +152,18 @@ You can run scripts to run PINNsAgent experiments over PDEs from `./src/2025_6_0
 # Grant execution permission
 chmod +x ./src/2025_6_01/1_pinns_agent-pinnsagent_prompt-use_pkgr-use_memory_tree--use_uct-10000iters.sh
 # Run the experiment script
-./src/1_pinns_agent-pinnsagent_prompt-use_pkgr-use_memory_tree--use_uct-10000iters.sh
+./src/2025_6_01/1_pinns_agent-pinnsagent_prompt-use_pkgr-use_memory_tree--use_uct-10000iters.sh
+```
+
+## Citation
+
+If you find our work useful for your research, please consider citing:
+
+```bibtex
+@inproceedings{wuwu2025pinnsagent,
+  title={PINNsAgent: Automated PDE Surrogation with Large Language Models},
+  author={Wuwu, Qingpo and Gao, Chonghan and Chen, Tianyu and Huang, Yihang and Zhang, Yuekai and Wang, Jianing and Li, Jianxin and Zhou, Haoyi and Zhang, Shanghang},
+  booktitle={International Conference on Machine Learning},
+  year={2025}
+}
 ```
